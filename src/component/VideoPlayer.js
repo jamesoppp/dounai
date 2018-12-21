@@ -44,7 +44,7 @@ export default class VideoPlayer extends React.Component {
     this.state = {
       x: 0,
       videoWidth: screenWidth,
-      videoHeight: defaultVideoHeight,
+      videoHeight: this.props.videoHeight,
       videoUrl: this.props.videoURL,
       videoCover: this.props.videoCover,
       videoTitle: this.props.videoTitle,
@@ -70,7 +70,7 @@ export default class VideoPlayer extends React.Component {
   render() {
     return (
       <View
-        style={[{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor: '#000' }, this.props.style]}>
+        style={[{ width: this.state.videoWidth, height: this.props.videoHeight, backgroundColor: '#000' }, this.props.style]}>
         {
           this.state.videoUrl && <Video
             ref={(ref) => { this.videoRef = ref }}
@@ -80,7 +80,7 @@ export default class VideoPlayer extends React.Component {
             volume={this.state.volume}
             muted={this.state.isMuted}
             ignoreSilentSwitch={"ignore"}
-            style={{ position: 'absolute', left: this.state.x, top: 0, width: this.state.videoWidth - 2 * this.state.x, height: this.state.videoHeight }}
+            style={{ position: 'absolute', left: this.state.x, top: 0, width: this.state.videoWidth - 2 * this.state.x, height: this.props.videoHeight }}
             paused={this.state.isPaused}
             onLoadStart={this._onLoadStart}
             onBuffer={this._onBuffering}
@@ -106,10 +106,10 @@ export default class VideoPlayer extends React.Component {
               top: 0,
               left: 0,
               width: this.state.videoWidth,
-              height: this.state.videoHeight,
+              height: this.props.videoHeight,
               backgroundColor: this.state.isPaused ? 'rgba(0, 0, 0, 0.2)' : 'transparent',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}>
             {
               this.state.isPaused ?
@@ -124,7 +124,7 @@ export default class VideoPlayer extends React.Component {
         </TouchableWithoutFeedback>
         {
           this.state.isShowControl ?
-            <View style={[styles.bottomControl, { width: this.state.videoWidth }]}>
+            <View style={[styles.bottomControl, { width: this.state.videoWidth, bottom: this.props.controlBottom }]}>
               <Image
                 source={require('../image/img_bottom_shadow.png')}
                 style={{ position: 'absolute', top: 0, left: 0, width: this.state.videoWidth, height: 50 }}
@@ -135,7 +135,7 @@ export default class VideoPlayer extends React.Component {
                   source={this.state.isPaused ? require('../image/icon_control_play.png') : require('../image/icon_control_pause.png')}
                 />
               </TouchableOpacity>
-              <Text style={styles.timeText}>{formatTime(this.state.currentTime)}</Text>
+              <Text style={styles.timeText}>{(this.state.currentTime === 0 && !this.state.isPaused) ? '加载中...' : formatTime(this.state.currentTime)}</Text>
               <Slider
                 style={{ flex: 1 }}
                 maximumTrackTintColor={'#999999'}//滑块右侧轨道的颜色
