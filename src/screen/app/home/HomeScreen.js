@@ -92,8 +92,8 @@ export default class HomeScreen extends Component {
   render() {
     const { shortVideoIndex } = this.props.videoStore;
     return (
-      <View style={{ flex: 1 }}>
-        <Swiper index={0} onIndexChanged={this.renderpn}>
+      <View style={{ flex: 1 }} onLayout={this._onLayoutChange}>
+        <Swiper onIndexChanged={this.renderpn} loop>
           {
             _.map(this.state.currentUrl, (item, index) => {
               console.log(this.state.nowindex, index)
