@@ -18,11 +18,11 @@ export default class Route extends Component {
     return (
       <Router>
         <Scene key="root">
-          <Tabs lazy init initial hideNavBar>
-            <Scene key="home" component={HomeScreen} hideNavBar title={'首页'} icon={() => <TabIcon icon={G_IMAGE.home} />}  />
-            <Scene key="book" component={BookScreen} title={'书籍'} icon={() => <TabIcon icon={G_IMAGE.book} />}/>
-            <Scene key="video" component={VideoScreen} title={'视频'} icon={() => <TabIcon icon={G_IMAGE.video} />}/>
-            <Scene key="image" component={ImageScreen} title={'图片'} icon={() => <TabIcon icon={G_IMAGE.image} />}/>
+          <Tabs tabBarPosition='bottom' lazy init initial hideNavBar tabBarStyle={{ backgroundColor: '#000' }}>
+            <Scene key="home" component={HomeScreen} hideNavBar title={'首页'} icon={() => <TabIcon icon={G_IMAGE.home} />} />
+            <Scene key="book" component={BookScreen} title={'书籍'} icon={() => <TabIcon icon={G_IMAGE.book} />} />
+            <Scene key="video" component={VideoScreen} title={'视频'} icon={() => <TabIcon icon={G_IMAGE.video} />} />
+            <Scene key="image" component={ImageScreen} title={'图片'} icon={() => <TabIcon icon={G_IMAGE.image} />} />
           </Tabs>
         </Scene>
       </Router>
