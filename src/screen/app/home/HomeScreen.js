@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, BackHandler } from 'react-native';
 import Orientation from "react-native-orientation";
 import VideoPlayer from "../../../component/VideoPlayer";
-import Swiper from 'react-native-swiper'
 import { inject, observer } from "mobx-react";
+import Carousel from 'react-native-looped-carousel';
 @inject('videoStore')
 @observer
 
@@ -34,6 +34,7 @@ export default class HomeScreen extends Component {
 
   //全屏按钮事件
   _onOrientationChanged = (isFullScreen) => {
+    // alert(isFullScreen);
     if (isFullScreen) {
       Orientation.lockToPortrait();
     } else {
@@ -86,39 +87,30 @@ export default class HomeScreen extends Component {
     }
     currentIndex = index;
     this.props.videoStore.shortVideoIndex = index;
-    return index;
   }
 
   render() {
     const { shortVideoIndex } = this.props.videoStore;
     return (
       <View style={{ flex: 1 }} onLayout={this._onLayoutChange}>
-        <Swiper onIndexChanged={this.renderpn} loop>
+        <Carousel delay={2000} style={{ flex: 1 }}  onAnimateNextPage={this.renderpn} autoplay={false}>
           {
-            _.map(this.state.currentUrl, (item, index) => {
-              console.log(this.state.nowindex, index)
-              return (
-                <View style={{ flex: 1, justifyContent: 'center', }} key={index}>
-                  {
-                    shortVideoIndex == index ?
-                      <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#85533' + shortVideoIndex, }}>
-                        <Text style={{ fontSize: 20 }}>{index}</Text>
-                      </View> : <Text>{'为false,当前页面第' + index}</Text>
-                  }
-                </View>
-              )
-            })
+            this.state.currentUrl.map((item, index) => <View style={{ width: G_WIDTH, height: G_HEIGHT-50, justifyContent: 'center'}} key={index}>
+              {
+                shortVideoIndex == index ?
+                  <VideoPlayer
+                    ref={(ref) => this.videoPlayer = ref}
+                    videoURL={this.state.currentUrl[index]}
+                    videoTitle={'视频标题123123'}
+                    onChangeOrientation={this._onOrientationChanged}
+                    enableSwitchScreen={false}
+                  /> : <Text>{'我是暂未显示的视频缩略图' + index}</Text>
+              }
+            </View>)
           }
+        </Carousel>
 
-        </Swiper>
-        <VideoPlayer
-          ref={(ref) => this.videoPlayer = ref}
-          // style={{ position: 'absolute', left: 0, top: 0 }}
-          videoURL={this.state.currentUrl[0]}
-          videoTitle={'视频标题123123'}
-          isShareMenuShow={false}
-          onChangeOrientation={this._onOrientationChanged}
-        />
+
       </View>
 
     )
