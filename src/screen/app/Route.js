@@ -10,7 +10,6 @@ import TabIcon from '../../component/TabIcon';
 
 /**
  * 路由器
- * 
  */
 export default class Route extends Component {
 

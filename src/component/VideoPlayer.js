@@ -16,6 +16,7 @@ import Video from 'react-native-video';
 import Orientation from "react-native-orientation";
 import SelectDefinitionView from "./SelectDefinitionView";
 import MoreSettingView from "./MoreSettingView";
+import { trace } from 'mobx';
 
 export default class VideoPlayer extends React.Component {
 
@@ -32,7 +33,8 @@ export default class VideoPlayer extends React.Component {
     videoTitle: '',  // 视频的标题
     enableSwitchScreen: true, // 是否允许视频切换大小
     tag: 0,
-    isPaused: true
+    isPaused: true,
+    controlBottom: 0  //控制行距离底部高度
   };
 
   constructor(props) {
@@ -291,15 +293,15 @@ export default class VideoPlayer extends React.Component {
   /// -------播放器回调事件方法-------
 
   _onLoadStart = () => {
-    console.log('视频开始加载...');
+    G_LOG('视频开始加载...');
   };
 
   _onBuffering = () => {
-    console.log('视频缓冲中...');
+    G_LOG('视频缓冲中...');
   };
 
   _onLoad = (data) => {
-    console.log('视频加载完成');
+    G_LOG('视频加载完成');
     this.setState({
       duration: data.duration,
     });
@@ -316,7 +318,7 @@ export default class VideoPlayer extends React.Component {
 
   //视频播放结束触发的方法
   _onPlayEnd = () => {
-    console.log('播放结束');
+    G_LOG('播放结束');
     this.setState({
       currentTime: 0,
       isPaused: true,
@@ -326,7 +328,7 @@ export default class VideoPlayer extends React.Component {
   };
 
   _onPlayError = () => {
-    console.log('视频播放失败');
+    G_LOG('视频播放失败');
   };
 
   /// -------控件点击事件-------
