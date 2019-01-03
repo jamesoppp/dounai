@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, BackHandler } from 'react-native';
+import { View, Text, BackHandler } from 'react-native';
 import Orientation from "react-native-orientation";
 import VideoPlayer from "../../../component/VideoPlayer";
 import { inject, observer } from "mobx-react";
+// import { Theme } from 'teaset';
 import Carousel from 'react-native-looped-carousel';
 @inject('videoStore')
 @observer
@@ -63,7 +64,7 @@ export default class HomeScreen extends Component {
     Orientation.unlockAllOrientations();
   };
 
-  /// 处理安卓物理返回键，横屏时点击返回键回到竖屏，再次点击回到上个界面
+  // 处理安卓物理返回键，横屏时点击返回键回到竖屏，再次点击回到上个界面
   _backButtonPress = () => {
     if (this.state.isFullScreen) {
       Orientation.lockToPortrait();
