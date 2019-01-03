@@ -10,8 +10,8 @@ export default class VideoScreen extends Component {
 
   render() {
     return (
-      <View style={{ width: G_WIDTH, height: G_HEIGHT - 110, backgroundColor: 'red' }}>
-       
+      <View style={{ width: G_WIDTH }}>
+
       </View>
     )
   }

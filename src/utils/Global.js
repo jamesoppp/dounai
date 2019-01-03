@@ -2,6 +2,7 @@
 import './ConstUtils';
 import './StorageUtils';
 import './ImagesUtils';
+import './StyleUtils';
 
 /** 导入网络框架*/
 // import NetApi from '../network/NetApi';
